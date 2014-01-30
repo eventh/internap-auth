@@ -1,0 +1,40 @@
+<?xml version="1.0" ?> 
+<definitions name="VSAuthentication" targetNamespace="http://vitalstream.com/webservices" xmlns:typens="http://vitalstream.com/webservices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://vitalstream.com/webservices">
+</xsd:schema>
+</types>
+<message name="doAuthenticate">
+  <part name="strAccount" type="xsd:string" /> 
+  <part name="strToken" type="xsd:string" /> 
+  <part name="strReferrer" type="xsd:string" /> 
+  <part name="strSourceURL" type="xsd:string" /> 
+  <part name="strClientIP" type="xsd:string" /> 
+  </message>
+<message name="doAuthenticateResponse">
+  <part name="Result" type="xsd:int" /> 
+</message>
+<portType name="VSAuthenticationPort">
+<operation name="Authenticate">
+  <input message="typens:doAuthenticate" /> 
+  <output message="typens:doAuthenticateResponse" /> 
+  </operation>
+  </portType>
+<binding name="VSAuthenticationBinding" type="typens:VSAuthenticationPort">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" /> 
+<operation name="Authenticate">
+  <soap:operation soapAction="http://vitalstream.com/webservices/Authenticate" /> 
+<input>
+  <soap:body use="encoded" namespace="http://vitalstream.com/webservices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /> 
+  </input>
+<output>
+  <soap:body use="encoded" namespace="http://vitalstream.com/webservices" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" /> 
+  </output>
+  </operation>
+  </binding>
+<service name="VSAuthenticationService">
+<port name="VSAuthenticationPort" binding="typens:VSAuthenticationBinding">
+  <soap:address location="http://localhost/VSAuthenticationWS/php/Authentication.php" /> 
+  </port>
+  </service>
+</definitions>
